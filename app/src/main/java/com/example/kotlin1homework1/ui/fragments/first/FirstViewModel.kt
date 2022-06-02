@@ -10,12 +10,14 @@ class FirstViewModel: ViewModel() {
     val list = ArrayList<Model>()
 
     fun getList() {
+        list.clear()
         list.add(Model("Aman"))
-        list.add(Model("Arsen"))
-        list.add(Model("Arzyke"))
-        list.add(Model("Ilgiz"))
-        list.add(Model("Alexandr"))
-        list.add(Model("Suhrab"))
+        list.add(Model("Aman"))
+        list.add(Model("Aman"))
+        list.add(Model("Aman"))
+        list.add(Model("Aman"))
+        list.add(Model("Aman"))
         liveData.value = list
+
     }
 }
