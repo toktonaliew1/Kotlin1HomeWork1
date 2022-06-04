@@ -9,15 +9,17 @@ class FirstViewModel: ViewModel() {
     val liveData = MutableLiveData<ArrayList<Model>>()
     val list = ArrayList<Model>()
 
-    fun getList() {
-        list.clear()
-        list.add(Model("Aman"))
-        list.add(Model("Aman"))
-        list.add(Model("Aman"))
-        list.add(Model("Aman"))
-        list.add(Model("Aman"))
-        list.add(Model("Aman"))
-        liveData.value = list
+    init {
+        getList()
+    }
 
+    fun getList() {
+        list.add(Model("Aslan"))
+        list.add(Model("Arsen"))
+        list.add(Model("Arzymat"))
+        list.add(Model("Alexandr"))
+        list.add(Model("Ilya"))
+        list.add(Model("Suhrab"))
+        liveData.value = list
     }
 }

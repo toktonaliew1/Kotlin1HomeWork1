@@ -20,16 +20,18 @@ class SecondFragment : BaseFragment<FragmentSecondBinding>() {
     ): View {
         binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun setupListener() {
         binding.button.setOnClickListener {
-            findNavController().navigate(
-                SecondFragmentDirections.actionSecondFragmentToFirstFragment(
-                    binding.edit.text.toString()
-                )
+            val bundle = Bundle()
+            bundle.putString("name", binding.edit.text.toString())
+            findNavController().previousBackStackEntry?.savedStateHandle?.set(
+                "key",
+                bundle
             )
+            findNavController().navigateUp()
         }
-
     }
 }

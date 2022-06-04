@@ -25,4 +25,5 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
 
     protected open fun setupListener() {
     }
+
 }

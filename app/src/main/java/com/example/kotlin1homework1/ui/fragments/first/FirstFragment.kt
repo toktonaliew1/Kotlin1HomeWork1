@@ -1,12 +1,12 @@
 package com.example.kotlin1homework1.ui.fragments.first
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.example.kotlin1homework1.R
 import com.example.kotlin1homework1.base.BaseFragment
 import com.example.kotlin1homework1.databinding.FragmentFirstBinding
@@ -19,7 +19,6 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>() {
     override lateinit var binding: FragmentFirstBinding
     private lateinit var viewModel: FirstViewModel
     private val adapter = Adapter()
-    private val args: FirstFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,10 +27,6 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>() {
         binding = FragmentFirstBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this).get(FirstViewModel::class.java)
         return binding.root
-    }
-
-    private fun getData() {
-        viewModel.list.add(Model(args.name))
     }
 
     override fun setupListener() {
@@ -51,10 +46,23 @@ class FirstFragment : BaseFragment<FragmentFirstBinding>() {
     }
 
     override fun setupRequest() {
-        viewModel.getList()
+        getDataFromSecondFragment()
         viewModel.liveData.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
+            Log.e("tag", viewModel.list.size.toString())
         }
-        getData()
+    }
+
+    private fun getDataFromSecondFragment() {
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Bundle>("key")
+            ?.observe(
+                viewLifecycleOwner
+            ) { result ->
+                viewModel.list.add(
+                    Model(
+                        result.getString("name")!!,
+                    )
+                )
+            }
     }
 }
